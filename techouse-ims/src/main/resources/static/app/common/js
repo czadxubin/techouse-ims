@@ -1,0 +1,30 @@
+<custom-tag-demo-01 id="custom-tag-demo-01"></custom-tag-demo-01>
+				<custom-tag-demo-02 id="custom-tag-demo-02"></custom-tag-demo-02>
+				<div class="box box-solid box-success">
+					<div class="box-header ui-sortable-handle">
+						搞一个图标
+						<i class="fa fa-comments-o"></i>
+						设置个标题
+						<h3 class="box-title">box-title</h3>
+						
+						<div class="box-tools pull-right" data-toggle="tooltip" title="Status">
+							<div class="btn-group" data-toggle="btn-toggle">
+								<button type="button" class="btn btn-default btn-sm active">
+									<i class="fa fa-square  text-red"></i>
+								</button>
+								
+								<button type="button" class="btn btn-default btn-sm">
+									<i class="fa fa-square text-red"></i>
+								</button> 
+							</div>
+						</div>
+						
+					</div>
+					内容体
+					<div class="box-body">
+						<div ng-app="">
+						 	<p>名字 : <input type="text" ng-model="name"/></p>
+						 	<h1>Hello {{name}}</h1>
+						</div>
+					</div>
+				</div>

@@ -1,0 +1,37 @@
+<ul id="left-menu-id" th:fragment="left-menu" class="sidebar-menu">
+	<li class="header">功能</li>
+	<li class="treeview">
+		<a href="#"> 
+			<i class="fa fa-laptop"></i>
+			<span>系统维护</span>
+			<span class="pull-right-container">
+				<i class="fa fa-angle-left pull-right"></i>
+			</span>
+		</a>
+		<ul class="treeview-menu">
+			<li>
+				<a href="/configvalue/list">
+					<i class="fa fa-circle-o"></i> 系统参数维护
+				</a>
+			</li>
+			<li>
+				<a href="/clearMemeory">
+					<i class="fa fa-circle-o"></i> 清除系统缓存
+				</a>
+			</li>
+		</ul>
+	</li>
+
+	<!--  
+	<li class="header">LABELS</li>
+	-->
+	<li><a menu="true" href="#"><i class="fa fa-circle-o text-red"></i> <span>关于</span></a></li>
+	<!--
+	<li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+	
+<script th:src="@{/angularjs/angular-route/1.3.13/angular-route.js}"></script>
+-->
+<script>
+
+</script>
+</ul>

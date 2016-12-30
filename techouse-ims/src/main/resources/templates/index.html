@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	>
+<head th:replace="index/common :: head"></head>
+<body class="skin-blue sidebar-mini wysihtml5-supported">
+	<div class="wrapper">
+
+		<header class="main-header">
+			<!-- Logo -->
+			<a href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+				<span class="logo-mini"><b>IMS</b></span> <!-- logo for regular state and mobile devices -->
+				<span class="logo-lg"><b>技术宅</b>&nbsp;<small>用户系统</small></span>
+			</a>
+			<!-- Header Navbar: style can be found in header.less -->
+			<nav class="navbar navbar-static-top">
+				<!-- Sidebar toggle button-->
+				<a href="#" class="sidebar-toggle" data-toggle="offcanvas"
+					role="button"> <span class="sr-only">Toggle navigation</span>
+				</a>
+				<div class="navbar-custom-menu">
+					<ul class="nav navbar-nav">
+						<!-- User Account: style can be found in dropdown.less -->
+						<li class="dropdown user user-menu">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+								<img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+								<span class="hidden-xs">Alexander Pierce</span>
+						</a>
+							<ul class="dropdown-menu">
+								<!-- User image -->
+								<li class="user-header">
+									<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+									<p>Alexander Pierce - Web Developer 
+										<small>Member since Nov. 2012</small>
+									</p>
+								</li>
+								<!-- Menu Body -->
+								<li class="user-body">
+									<div class="row">
+										<div class="col-xs-4 text-center">
+											<a href="#">Followers</a>
+										</div>
+										<div class="col-xs-4 text-center">
+											<a href="#">Sales</a>
+										</div>
+										<div class="col-xs-4 text-center">
+											<a href="#">Friends</a>
+										</div>
+									</div> <!-- /.row -->
+								</li>
+								<!-- Menu Footer-->
+								<li class="user-footer">
+									<div class="pull-left">
+										<a href="#" class="btn btn-default btn-flat">Profile</a>
+									</div>
+									<div class="pull-right">
+										<a href="#" class="btn btn-default btn-flat">Sign out</a>
+									</div>
+								</li>
+							</ul></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<!-- Left side column. contains the logo and sidebar -->
+		<aside th:fragment="left-menu" class="main-sidebar">
+			<!-- sidebar: style can be found in sidebar.less -->
+			<section class="sidebar" style="height: auto;">
+				<!-- Sidebar user panel -->
+				<div class="user-panel">
+					<div class="pull-left image">
+						<img th:src="@{/AdminLTE/2.3.7/dist/img/user2-160x160.jpg}" class="img-circle" alt="User Image"/>
+					</div>
+					<div class="pull-left info">
+						<p>Alexander Pierce</p>
+						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+					</div>
+				</div>
+				<!-- 
+					sidebar menu: : style can be found in sidebar.less 
+					左侧菜单部分
+				-->
+				<ul class="sidebar-menu" th:replace="index/menu :: left-menu"></ul>
+			</section>
+			<!-- /.sidebar -->
+		</aside>
+
+		<!-- 
+			Content Wrapper. Contains page content
+			主内容区标题
+		-->
+		<div class="content-wrapper" style="min-height: 901px;">
+			<!-- Content Header (Page header) -->
+			<section id="content-header-id" class="content-header">
+				 
+				<h1 style="float: right">
+					主内容区标题  <!--<small>Control panel</small> -->
+				</h1>
+				
+				<!-- 面包屑 路径提示 -->
+				<ol class="breadcrumb" style="float: left;left: 10px;">
+					<li>一级菜单</li>
+					<li class="active">二级菜单</li>
+				</ol>
+			</section>
+
+			<!-- Main content 主内容区 -->
+			<section id="main-content-id" class="col-lg-12 " >
+				
+				<!-- -->
+				<div class="box">
+					<div class="box-body" >
+						<table id="configvalue-table-id">
+							<thead>
+								<tr>
+									<th>环境代码</th>
+									<th>参数代码</th>
+									<th>参数取值</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>SystemInfo</td>
+									<td>all.system.info</td>
+									<td>IMS|用户系统</td>
+								</tr>
+								<tr>
+									<td>SystemInfo</td>
+									<td>all.system.info</td>
+									<td>SSO|单点系统</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+ <script>
+	$("#configvalue-table-id")
+		.addClass('table table-striped table-bordered')
+		.DataTable();
+
+</script>
+
+	
+			</section>
+
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+		<footer class="main-footer">
+			<div class="pull-right hidden-xs">
+				<b>V1.0.0</b>
+			</div>
+			<strong>著作权 © 2016-2018 <a href="#">Techouse Team</a>.</strong> 最终解释权.
+		</footer>
+
+		<!-- Control Sidebar -->
+		<!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+		<div class="control-sidebar-bg" style="position: fixed; height: auto;"></div>
+	</div>
+	<!-- ./wrapper -->
+
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<footer-js th:replace="index/common :: footer-js"></footer-js>
+<script type="text/javascript" charset="utf-8" th:src="@{/app/common/application.js}"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[
+	{
+		environmentCode:"environmentCode01",
+		configCode:"configCode01",
+		configValue:"configValue01"
+	},
+	{
+		environmentCode:"environmentCode02",
+		configCode:"configCode02",
+		configValue:"configValue02"
+	},
+	{
+		environmentCode:"environmentCode03",
+		configCode:"configCode03",
+		configValue:"configValue03"
+	}
+]

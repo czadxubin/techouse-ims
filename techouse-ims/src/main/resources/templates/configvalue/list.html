@@ -1,0 +1,141 @@
+<div class="box box-warning box-solid">
+	
+	<div class="box-header ui-sortable-handle">
+		 <!-- <i class="fa fa-comments-o"></i>  -->
+
+		<center><h5 class="box-title">查询</h5></center>
+		<!--
+		<div class="box-tools pull-right" data-toggle="tooltip" title=""
+			data-original-title="Status">
+			<div class="btn-group" data-toggle="btn-toggle">
+				<button type="button" class="btn btn-default btn-sm active">
+					<i class="fa fa-square text-green"></i>
+				</button>
+				<button type="button" class="btn btn-default btn-sm">
+					<i class="fa fa-square text-red"></i>
+				</button>
+			</div>
+		</div> 
+		-->
+	</div>
+	
+	<div class="box-body" >
+		<form th:action="@{/configvalue/list}" method="post">
+			<div class="row">
+				<div class="col-md-2 col-md-offset-3">
+					<input name="environmentCode" type="text" class="form-control" placeholder="环境代码"/>
+				</div>
+				<div class="col-md-2">
+					<input name="configValueCode" type="text" class="form-control" placeholder="参数代码"/>
+				</div>
+				<input name="configValueCode" type="hidden" value="01"/>
+				<input name="configValueCode" type="hidden" value="02"/>
+				<div class="col-md-2">
+					<select name="validFlag" class="form-control">
+						<option value="">全部</option>
+                    	<option value="1">有效</option>
+                    	<option value="0">无效</option>
+                  	</select>
+				</div>
+				<div class="col-md-2">
+					<button id="query-button-id" type="button" class="btn btn-primary" onclick="excuteQuery();">查询</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!--  
+	<div class="box-footer">
+		<div class="input-group">
+			<input class="form-control" placeholder="Type message..."/>
+
+			<div class="input-group-btn">
+				<button type="button" class="btn btn-success">
+					<i class="fa fa-plus"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+	-->
+</div>
+
+<div class="box" id="configvalue-table-wrapper-id">
+	<div class="box-body" >
+		<table id="configvalue-table-id" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>环境代码</th>
+					<th>参数代码</th>
+					<th>参数取值</th>
+					<th>有效标识</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+<script>
+var firstLoad=true;
+if(firstLoad){
+	configValueDataTable=undefined;
+}
+var arr=[]
+var configValueDataTable;//参数配置数据表
+var configValueDataTableWrapper=$("#configvalue-table-wrapper-id");
+function excuteQuery(){
+	if(configValueDataTable==undefined){
+		configValueDataTable=$("#configvalue-table-id")
+		.on("xhr.dt",function(){
+			console.log("success");
+			configValueDataTableWrapper
+				.removeClass("box-danger")
+				.removeClass("box-warning")
+				.removeClass("box-default")
+				.addClass("box-success");
+		})
+		.on("error.dt",function(e, settings, techNote, message ){
+			var errorTip='<tr class="odd"><td valign="top" colspan="4" class="dataTables_empty"><font color="red">加载数据失败</font></td></tr>';
+			console.log(e);
+			var tbody=configValueDataTable
+				.table()
+				.body();
+			$(tbody).append("td[class='dataTables_empty']").html(errorTip);
+			console.log(message)
+			configValueDataTableWrapper
+				.removeClass("box-success")
+				.removeClass("box-warning")
+				.removeClass("box-default")
+				.addClass("box-danger");
+		})
+		.DataTable( {
+			//paging: false 	//可以页导航
+			searching:false,	//可搜索
+			"serverSide": true,	//服务器端控制分页
+			columns: [
+		        { data: 'environmentCode'},
+		        { data: 'configCode' },
+		        { data: 'configValue'},
+		        { 
+		        	data: 'validFlag',
+		        	render: function ( data, type, full ) {
+		        		return data=='1'?"有效":"无效";
+		        	}
+		        }
+		    ],
+		    "createdRow":function( row, data, index){
+		    	$(row).append("<td><button>编辑</button><button>删除</button></td>");
+		    },
+		    "ajax" : {
+		    	"url":"/configvalue/list",
+		    	"type":"post",
+		    	//"contentType":"application/json",
+		    	"traditional":false,
+		    	"data":formQueryParamsToJson()
+		    },
+		} );
+		firstLoad=false;
+	}else{
+		configValueDataTable.ajax.reload()
+	}
+}
+</script>
+
