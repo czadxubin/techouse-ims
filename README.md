@@ -1,2 +1,2 @@
 # techouse-ims
-this is a can be dynamic condfigration's micro-service
+一个后台管理网站的demo.暂时定位是用户管理系统
