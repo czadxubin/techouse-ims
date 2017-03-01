@@ -1,0 +1,258 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cn.ainotes.com</groupId>
+	<artifactId>ainotes-usersystem-web</artifactId>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
+	<name>爱笔记用户系统</name>
+	<description>爱笔记用户系统</description>
+	<properties>
+		<jdk.version>1.7</jdk.version>
+		<spring.framework.version>4.3.2.RELEASE</spring.framework.version>
+		<mybatis.version>3.4.1</mybatis.version>
+		<mybatis.spring.version>1.3.0</mybatis.spring.version>
+		<jstl.version>1.2</jstl.version>
+		<jsp.version>2.2.1</jsp.version>
+		<servlet.version>3.0.1</servlet.version>
+		<taglibs.version>1.1.2</taglibs.version>
+		<c3p0.version>0.9.1.2</c3p0.version>
+		<mysql.version>5.1.18</mysql.version>
+	</properties>
+	<dependencyManagement>
+	    <dependencies>
+	        <dependency>
+	            <groupId>org.springframework</groupId>
+	            <artifactId>spring-framework-bom</artifactId>
+	            <version>${spring.framework.version}</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	        </dependency>
+	    </dependencies>
+	</dependencyManagement>
+	
+	<dependencies>
+		<dependency>
+		    <groupId>javax.transaction</groupId>
+		    <artifactId>jta</artifactId>
+		    <version>1.1</version>
+		</dependency>
+			
+		<!-- serlvet/jsp/jstl/taglib web基础库-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>${jsp.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>${taglibs.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- spring-framework begin-->
+		<!-- spring-core -->
+	    <dependency>
+		        <groupId>org.springframework</groupId>
+		        <artifactId>spring-beans</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-context</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-context-support</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-expression</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-core</artifactId>
+	    </dependency>
+	    
+	    <!-- spring-aop -->
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-aop</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-aspects</artifactId>
+	    </dependency>
+	    
+	    <!-- spring-web -->
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-web</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-webmvc</artifactId>
+	    </dependency>	    
+	    <!-- spring-dataAccess -->
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-jdbc</artifactId>
+	    </dependency>
+
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-orm</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-tx</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-test</artifactId>
+	    </dependency>
+	    <!-- spring-framework end-->
+		<!-- mybatis begin -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<!-- mybatis end -->
+		<!-- spring-mybatis.jar begin-->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>${mybatis.spring.version}</version>
+		</dependency>
+		<!-- spring-mybatis.jar end -->		
+		<!-- mybatis的ehcache二级缓存  begin-->
+		<dependency>
+		    <groupId>net.sf.ehcache</groupId>
+		    <artifactId>ehcache</artifactId>
+		    <version>2.10.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-ehcache</artifactId>
+		    <version>1.0.0</version>
+		</dependency>
+		<!-- mybatis的ehcache二级缓存  end-->		
+		<!-- 日志系统 begin -->
+		<!-- slf4j -->
+		<dependency> 
+		    <groupId>org.slf4j</groupId> 
+		    <artifactId>slf4j-api</artifactId> 
+		    <version>1.7.15</version> 
+		</dependency>
+		<!-- 
+			slf与其他日志进行桥接 
+		--> 
+		<dependency> 
+		    <groupId>org.slf4j</groupId> 
+		    <artifactId>jcl-over-slf4j</artifactId> 
+		    <version>1.7.12</version> 
+		</dependency> 
+		<!-- logback日志核心 -->
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-core</artifactId>
+		    <version>1.1.7</version>
+		</dependency>
+		<!-- logback日志对log4j的优化 -->
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>1.1.7</version>
+		</dependency>
+		<!-- 日志访问支持http -->
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-access</artifactId>
+		    <version>1.1.7</version>
+		</dependency>
+		<!-- 日志系统 end -->
+		<!-- c3p0连接池 and mysql driver begin-->
+		<dependency>
+		    <groupId>c3p0</groupId>
+		    <artifactId>c3p0</artifactId>
+		    <version>${c3p0.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>${mysql.version}</version>
+		</dependency>
+		<!-- c3p0连接池 and mysql driver end-->
+		<!-- 单元测试 -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.12</version>
+		</dependency>
+		<!-- jackjson -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>2.8.3</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.codehaus.jackson</groupId>
+		    <artifactId>jackson-mapper-asl</artifactId>
+		    <version>1.9.13</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-annotations</artifactId>
+		    <version>2.8.3</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.8.3</version>
+		</dependency>
+
+	
+
+
+
+
+
+
+		
+	</dependencies>
+	
+	<build>
+		<finalName>${artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>  
+				<artifactId>maven-compiler-plugin</artifactId>  
+				<configuration>  
+					<source>${jdk.version}</source>  
+					<target>${jdk.version}</target>  
+        		</configuration>  
+			</plugin>
+	
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+            </plugin>
+		</plugins>
+		
+		
+	</build>
+</project>

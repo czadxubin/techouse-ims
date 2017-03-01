@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:c="http://www.springframework.org/schema/c"
+    
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    
+    xsi:schemaLocation=
+    	"http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd 
+		
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+	<!-- 数据层配置 -->		
+	<context:property-placeholder location="classpath:config/database.properties"/>
+	<!-- 1.dataSource -->
+	<bean id="MySqlDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="user" value="${jdbc.user}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<property name="driverClass" value="${jdbc.driverClass}"></property>
+		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}"></property>
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
+	</bean>
+	<!-- 2.sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="MySqlDataSource"></property>
+		<!-- 设置mybatis的mapper.xml路径，可以ant匹配 -->
+		<property name="mapperLocations" value="classpath*:com/ainotes/**/*Mapper.xml"></property>
+		<!-- 设置mybatis的配置文件路径 -->
+		<property name="configLocation"  value="classpath:mybatis/mybatisConfig.xml"></property>
+	</bean>
+	<!-- 3.mapperScannerConfigurer 设置mapper类扫描 -->
+	<bean id="mapperScannerConfiger" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.ainotes.**.mapper"></property>
+	</bean>
+	<!-- 4.transactionManager -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="MySqlDataSource"></property>
+	</bean>
+	<!-- 5.开启注解事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- 5.1（扩展）声明式事务  -->
+	<!-- aop通知：必须开启事务 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="query*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="fetch*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="*" propagation="SUPPORTS"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="servicePointcut" expression="execution(public * cn.ainotes.**.service.impl.*.*(..))" />
+		<aop:pointcut id="mapperPointcut" expression="execution(public * cn.ainotes.**.mapper.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointcut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="mapperPointcut"/>
+	</aop:config>
+		
+		
+		
+</beans>

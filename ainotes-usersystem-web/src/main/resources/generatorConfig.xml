@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<properties resource="generatorConfig.properties"/>
+	<!--数据库驱动jar -->
+    <classPathEntry location="E:\Mave_Repository\mysql\mysql-connector-java\5.1.18\mysql-connector-java-5.1.18.jar" />
+	<!-- 
+		targetRuntime
+			MyBatis3：带有Example类【默认】
+			MyBatis3Simple:没有Example类
+	 -->
+	<context id="ainotes_usersys" targetRuntime="MyBatis3" >
+		<commentGenerator>
+			<!-- 
+			suppressAllComments
+				false	:	生成注释[defalut]
+				true	:	不生成
+			 -->
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/ainotes_usersystem"
+			driverClass="com.mysql.jdbc.Driver" password="root" userId="root" />
+		<!-- targetProject -->
+		<javaModelGenerator targetPackage="cn.ainotes.model" targetProject="${targetProject}" >
+			<!-- 
+				enableSubPackages:默认false
+			 -->
+			<property name="enableSubPackages" value="true"/>
+		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="cn.ainotes.mapper" targetProject="${targetProject}" >
+			<!-- 
+				enableSubPackages:默认false
+			-->
+			<property name="enableSubPackages" value="true"/>
+		</sqlMapGenerator>
+		<javaClientGenerator targetPackage="cn.ainotes.mapper" type="XMLMAPPER" targetProject="${targetProject}" >
+			<!-- 
+				enableSubPackages:默认false
+			 -->
+			<property name="enableSubPackages" value="true"/>
+		</javaClientGenerator>
+		<table  tableName="Users" domainObjectName="user.User" >
+			
+		</table>
+		
+	</context>
+</generatorConfiguration>

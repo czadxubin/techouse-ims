@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ainotes.user.mapper.UserMapper">
+  	<select id="findByPK" resultType="cn.ainotes.user.entity.User">
+  		select * from users where id = #{id} 
+  	</select>
+  	<insert id="add" parameterType="cn.ainotes.user.entity.User">
+  		insert into users 
+  			<trim prefix="(" suffix=")" suffixOverrides=",">
+	  			<if test="username != null ">
+	  				username,
+	  			</if>
+	  			<if test="password != null ">
+	  				password,
+	  			</if>
+	  			<if test="nickname != null ">
+	  				nickname,
+	  			</if>
+  			</trim>
+  		values
+  			<trim prefix="(" suffix=")" suffixOverrides=",">
+ 				<if test="username != null ">
+  					#{username},
+	  			</if>
+	  			<if test="password != null ">
+	  				#{password},
+	  			</if>
+	  			<if test="nickname != null ">
+	  				#{nickname},
+	  			</if>
+			</trim>
+  	</insert>
+</mapper>
